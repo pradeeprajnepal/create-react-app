@@ -6,7 +6,7 @@ const RenderMenuItems= ({dish, onClick})=>{
     return (
         <Card  key={dish.id}
                     onClick={()=> onClick(dish.id)}>
-                        <CardImg src={dish.image} alt={dish.name} />
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
                         <CardImgOverlay>
                             <CardTitle>{dish.name}</CardTitle>
                         </CardImgOverlay>
