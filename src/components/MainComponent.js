@@ -6,6 +6,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
@@ -38,6 +39,7 @@ class Main extends Component {
       );
     }
 
+  
     const DishWithId = ({match})=>{
       return(
         <DishDetail dish={this.state.dishes.filter((dish)=> dish.id===parseInt(match.params.dishId,10))[0]}
@@ -50,6 +52,7 @@ class Main extends Component {
         <Header />
         <Switch>
           <Route path="/home" component={HomePage} />
+          <Route path="/aboutus" component={()=> <About leaders={this.state.leaders}/> } />
           <Route exact path='/menu' component={()=> <Menu dishes={this.state.dishes}/>} />
           <Route exact path='/contactus' component={Contact} />
           <Route path='/menu/:dishId' component={DishWithId} />
