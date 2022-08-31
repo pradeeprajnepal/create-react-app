@@ -1,10 +1,152 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle,CardText, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import {
+    Button, Modal, ModalBody, ModalHeader, Label, Row, Col
+} from 'reactstrap';
+
+import { Control, LocalForm, Errors} from 'react-redux-form';
 
 
 
-   
+ //Assignment 3
+
+ //validators
+
+ const required=(val)=>val && val.length;
+ const maxLength=(len)=>(val)=>!(val)||(val.length<=len);
+ const minLength=(len)=>(val)=>(val) && (val.length>=len);
+
+ class CommentForm extends Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+            isCommentForModalOpen: false
+        }
+        this.toggleCommentForModal=this.toggleCommentForModal.bind(this);
+    this.handleCommentFormSubmit= this.handleCommentFormSubmit.bind(this);
+    }
+    
+ 
+ toggleCommentForModal(){
+    this.setState({
+        isCommentForModalOpen: !this.state.isCommentForModalOpen
+    })
+}
+
+handleCommentFormSubmit(values){
+    console.log("Current state is: "+JSON.stringify(values));
+    alert("Current State is"+ JSON.stringify(values));
+}
+
+ render(){
+    return(
+        <React.Fragment>
+            <Button outline onClick={this.toggleCommentForModal}>
+                <span className='fa fa-comment fa-lg'></span>Submit Comment
+            </Button>
+
+            <Modal isOpen={this.state.isCommentForModalOpen} toggle={this.toggleCommentForModal}>
+                <ModalHeader toggle={this.toggleCommentForModal}>Submit Comment</ModalHeader>
+                <ModalBody>
+                    <LocalForm onSubmit={(values)=>this.handleCommentFormSubmit(values)}>
+                       
+                        {/*rating*/}
+                        <Row className="form-group">
+                            <Label htmlFor='rating' md={12}>Rating</Label>
+                            <Col md={12}>
+                                <Control.select model=".rating"
+                                className="form-control"
+                                name="rating"
+                                id="rating"
+                                validators={{
+                                    required
+                                }}
+                                >
+                                    <option>Please Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                                <Errors
+                                className='text-danger'
+                                model=".rating"
+                                show="touched"
+                                messages={{
+                                    required:"Required",
+                                }}
+                                />
+                            </Col>
+                        </Row>
+
+                        {/* author */}
+                        <Row className="form-group">
+                            <Label htmlFor="author" md={12}>Your Name</Label>
+                            <Col md={12}>
+                                <Control.text model=".author" id="author" name="author"
+                                placeholder="First Name"
+                                className="form-control"
+                                validators={{
+                                    required, minLength: minLength(3), maxLength: maxLength(15)
+                                }}
+                                />
+                                <Errors
+                                    className='text-danger'
+                                    model=".author"
+                                    show="touched"
+                                    messages={{
+                                        required:"Requried",
+                                        minLength:"Must be greater than 2 characters",
+                                        maxLength:"Must be 15 characters or less"
+                                    }}
+                                />
+                            </Col>
+                        </Row>
+
+                        {/*comment*/}
+                        <Row class="form-group">
+                            <Label htmlFor="comment" md={12}>Comment</Label>
+                            <Col md={12}>
+                                <Control.textarea model=".comment" id="comment" name="comment"
+                                rows="6"
+                                className="form-control"
+                                validators={{
+                                    required
+                                }}
+                                />
+                                <Errors
+                                    className='text-danger'
+                                    model=".comment"
+                                    show="touched"
+                                    messages={{
+                                        required: 'Required'
+                                    }}
+                                />
+                            </Col>
+
+                        </Row>
+
+                        {/*submit button*/}
+                        <Row class="form-group">
+                            <Col>
+                                <Button type="submit" color="primary">
+                                    Submit
+                                </Button>
+                            </Col>
+                        </Row>
+
+                    </LocalForm>
+                </ModalBody>
+            </Modal>
+        </React.Fragment>
+    )
+ }
+ }
+ 
+ //end
     
 const RenderDish=({dish})=>{
     if(dish != null){
@@ -27,7 +169,7 @@ const RenderDish=({dish})=>{
 }
 
 
-const RenderComments=({comments})=> {
+const RenderComments=({dish,comments})=> {
     if (comments != null) {
        return (
           <div className="col-12 m-1">
@@ -42,6 +184,7 @@ const RenderComments=({comments})=> {
                 );
               })}
               </ul>
+              <CommentForm dish={dish} comments={comments}/>
           </div>
        );
     }
@@ -84,9 +227,9 @@ const DishDetail=(props)=> {
        );
     }
  }
+ 
 
-    
-    
+
     
     
 
