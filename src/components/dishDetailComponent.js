@@ -47,7 +47,7 @@ handleCommentFormSubmit(values){
                 <span className='fa fa-comment fa-lg'></span>Submit Comment
             </Button>
 
-            <Modal isOpen={this.state.isCommentForModalOpen} toggle={this.toggleCommentForModal}>
+            <Modal isOpen={this.state.isCommentForModalOpen} toggle={this.toggleCommentForModal} fade={false}>
                 <ModalHeader toggle={this.toggleCommentForModal}>Submit Comment</ModalHeader>
                 <ModalBody>
                     <LocalForm onSubmit={(values)=>this.handleCommentFormSubmit(values)}>
