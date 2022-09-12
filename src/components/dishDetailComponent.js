@@ -8,6 +8,7 @@ import {
 import { Control, LocalForm, Errors} from 'react-redux-form';
 import { addComment } from '../redux/ActionCreators';
 
+import {Loading} from './LoadingComponent';
 
 
  //Assignment 3
@@ -151,6 +152,7 @@ handleCommentFormSubmit(values){
  //end
     
 const RenderDish=({dish})=>{
+
     if(dish != null){
         return(
             <div  className="col-12  m-1">
@@ -198,6 +200,24 @@ const RenderComments=({dish,comments,addComment, dishId})=> {
  }
 
 const DishDetail=(props)=> {
+    if(props.isLoading){
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <Loading />
+                </div>
+            </div>
+        )
+    }
+    else if(props.errMess){
+        return(
+            <div className='contatiner'>
+                <div className='row'>
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        )
+    }
     if (props.dish != null) {
        return (
          <div className="container">
