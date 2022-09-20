@@ -158,12 +158,12 @@ const RenderDish=({dish})=>{
         return(
             <div  className="col-12  m-1">
             <Card >
-                <CardImg width="100%" src={baseUrl+dish.image} alt={dish.name} />
+                <CardImg width="100%" src={baseUrl+ dish.image} alt={dish.name} />
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
                 </CardBody>
-            </Card>
+            </Card>\
             </div>
         )
     }else{

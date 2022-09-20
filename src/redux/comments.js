@@ -13,7 +13,7 @@ export const Comments = (state = { errMess: null, comments:[]}, action) => {
             comment.id= state.length;
             comment.date= new Date().toISOString();
             console.log('comment', comment);
-            return state.concat(comment);
+            return {...state, comments:state.comments.concat(comment)};
         default:
           return state;
       }
