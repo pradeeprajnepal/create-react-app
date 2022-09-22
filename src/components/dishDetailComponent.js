@@ -6,7 +6,6 @@ import {
 } from 'reactstrap';
 
 import { Control, LocalForm, Errors} from 'react-redux-form';
-import { postComment } from '../redux/ActionCreators';
 
 import {Loading} from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
